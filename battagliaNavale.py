@@ -4,18 +4,12 @@
 
 from random import randint
 
-#
-# 1. INIZIALIZZAZIONE
-#     0. creare due tavole di gioco 5x5
-#         1. una tavola "NAVI" dove posiziona le sue navi (che noi non vediamo)
-#         2. una tavola "TIRI" dove annota i notri tiri (che vediamo)
-#     1. schermata di benvenuto e visualizzazione della tavola TIRI dove compaiono i nostri tiri (inizialmente vuota)
-#     2. posiziona a caso 5 navi da 1 sulla tavola NAVI (che noi non vediamo mai)
-#     3. porta il numero di navi rimaste da colpire a 5 e porta il numero di colpi sparati a 0
+
 
 ###########################################
 # INIZIALIZZAZIONE
 ###########################################
+
 # creo una matrice 5x5 per le navi
 # inizialmente piena di 0
 # le celle potranno contenere:
@@ -43,10 +37,12 @@ for i in ['A', 'B', 'C', 'D', 'E']:
 # liste dello stesso numero di elementi.
 
 # metto 5 navi da 1 a caso nella tabella navi
-
 for i in range(5):
-    rigaNave = randint(1,5)
-    colonnaNave = randint(1,5)
+    #la tavola è un dizionario 5x5, le chiavi sono le prime 5 lettere dell'alfabeto
+    rigaNave = 'ABCDE'[randint(0,4)]
+    #print("rigaNave=" + str(rigaNave))
+    colonnaNave = randint(0,4)
+    #print("colonnaNave="+ str(colonnaNave))
     navi[rigaNave][colonnaNave] = 'X'
 
 
@@ -62,15 +58,15 @@ def stampaTavola(tav):
         intColonne += str(j) + '   '
         j += 1
     print(intColonne)
-    
-    
+
+
     for i in chiavi:
         #stampa la riga i-esima
         corpoRiga = ''
         for j in tav[i]:
-            corpoRiga += ' | ' + j 
-        # aggiungo l'ultimo bordo    
-        corpoRiga += ' | ' 
+            corpoRiga += ' | ' + j
+        # aggiungo l'ultimo bordo
+        corpoRiga += ' | '
         print(i + corpoRiga)
 
 
@@ -90,5 +86,20 @@ print("***********************************************")
 print("***********************************************")
 print() #riga vuota per separare visivamente
 
-#stampiamo la tavola dei colpi
-stampaTavola(navi)
+###########################################
+# CICLO PRINCIPALE
+###########################################
+
+while True:
+    #stampiamo la tavola dei colpi
+    stampaTavola(navi)
+    
+    colpo = input("coordinate di tiro (scrivi esci per uscire):")
+    print() #riga vuota per spaziare
+    if colpo == "esci":
+        print("***********************************************")
+        print("partita terminata\n\n")
+        break
+    else:
+        print("tiro alla riga " + colpo[0].upper() + " colonna " + str(colpo[1]))
+        print()
